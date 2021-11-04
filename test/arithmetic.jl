@@ -60,5 +60,18 @@
         for i in 0:8, j in 0:8
             @test pair(i, j) == binomial(i + j + 1, 2) + i 
         end
-    end  
+    end
+    @testset "inv-pair" begin
+        for i in 0:6, j in 0:6-i
+            @test fst(binomial(i + j + 1, 2) + i) == i
+            @test scd(binomial(i + j + 1, 2) + i) == j 
+        end
+    end
+
+    @testset "fib" begin
+        fibs = [0, 1, 1, 2, 3, 5, 8]
+        for i in 0:5
+            @test fibs[i + 1] == fib(i)
+        end
+    end
 end
