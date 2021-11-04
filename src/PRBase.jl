@@ -1,18 +1,26 @@
-succ(xs...) = xs[1] + 1
+abstract type AbstractPrimRec end
 
-zro(xs...) = 0
+struct Succ <: AbstractPrimRec end
 
-abstract type AbstractOprator end
+(::Succ)(xs...) = xs[1] + 1
 
-struct Proj{T} <: AbstractOprator end
+succ = Succ()
+
+struct Zero <: AbstractPrimRec end
+
+(::Zero)(xs...) = 0
+
+zro = Zero()
+
+struct Proj{T} <: AbstractPrimRec end
 
 function (::Proj{T})(xs...) where {T}
     return xs[T]
 end
 
-struct Comb <: AbstractOprator 
-    f::Union{Function,AbstractOprator}
-    gs::Tuple{Vararg{T where T<:Union{Function,AbstractOprator}}}
+struct Comb <: AbstractPrimRec
+    f::AbstractPrimRec
+    gs::Tuple{Vararg{T where T<:AbstractPrimRec}}
     Comb(f, gs...) = new(f, gs)
 end
 
@@ -20,9 +28,9 @@ function (c::Comb)(xs...)
     return c.f((g(xs...) for g in c.gs)...)
 end
 
-struct PrimRec <: AbstractOprator
-    basic::Union{Function,AbstractOprator}
-    step::Union{Function,AbstractOprator}
+struct PrimRec <: AbstractPrimRec
+    basic::AbstractPrimRec
+    step::AbstractPrimRec
 end
 
 function (pr::PrimRec)(xs...)
