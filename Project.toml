@@ -1,0 +1,13 @@
+name = "PrimaryRecursive"
+uuid = "021e8829-203b-4eb3-8e2d-f0b150f18120"
+authors = ["Indigo <j.c.f.gauss@sjtu.edu.cn> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1.7"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
