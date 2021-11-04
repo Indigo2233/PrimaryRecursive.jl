@@ -12,7 +12,7 @@
     @testset "ifelse" begin
         for _ in 1:10, b in 0:5
             x, y = rand(0:10, 2)
-            @test ifel(b, x, y) == ifelse(b == 0, x, y)
+            @test ifel(b, x, y) == ifelse(b != 0, x, y)
         end
     end
 end

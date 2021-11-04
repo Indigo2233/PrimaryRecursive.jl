@@ -46,4 +46,19 @@
             @test square(i) == i ^ 2
         end
     end
+    @testset "square_root" begin
+        for i in 0:10
+            @test floor_sqrt(i) == floor(Int, sqrt(i))
+        end
+    end
+    @testset "traingle" begin
+        for i in 1:10
+            @test traingle(i) == binomial(i, 2) 
+        end
+    end
+    @testset "pair" begin
+        for i in 0:8, j in 0:8
+            @test pair(i, j) == binomial(i + j + 1, 2) + i 
+        end
+    end  
 end

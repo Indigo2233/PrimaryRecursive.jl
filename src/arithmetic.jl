@@ -34,8 +34,14 @@ remainder = PrimRec(
 
 ge = Comb(nsgn, cosubrev)
 
-ifel = PrimRec(p1, p4)
+ifel = PrimRec(p2, p3)
 
 square = Comb(mult, p1, p1)
 
-# floor_inv
+floor_sqrt = PrimRec(
+    zro, Comb(ifel, Comb(eq, Comb(square, Comb(succ, p1)), Comb(succ, p2)), Comb(succ, p1), p1)
+)
+
+traingle = PrimRec(zro, Comb(add, p1, p2))
+
+pair = Comb(add, p1, Comb(traingle, Comb(add, p1, Comb(succ, p2))))
