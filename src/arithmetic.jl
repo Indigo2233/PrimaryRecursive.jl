@@ -27,20 +27,23 @@ sgn = PrimRec(zro, Comb(const1, p1))
 sgn = PrimRec(zro, const1(p1))
 
 nsgn = PrimRec(const1, Comb(zro, p1))
-sgn = PrimRec(const1, zro(p1))
+nsgn = PrimRec(const1, zro(p1))
 
 eq = Comb(nsgn, dff)
 eq = nsgn(dff)
+
+neq = Comb(sgn, dff)
+neq = sgn(dff)
 
 remainder = PrimRec(
     zro,
     Comb(
         mult,
-        Comb(mult, Comb(succ, p1), Comb(sgn, p3)),
-        Comb(nsgn, Comb(eq, p1, Comb(pred, p3))),
+        Comb(succ, p1),
+        Comb(neq, p1, Comb(pred, p3)),
     ),
 )
-remainder = PrimRec(zro, mult(mult(succ(p1), sgn(p3)), nsgn(eq(p1, pred(p3)))))
+remainder = PrimRec(zro, mult(succ(p1), neq(p1, pred(p3))))
 
 ge = Comb(nsgn, cosubrev)
 ge = nsgn(cosubrev)
@@ -56,15 +59,14 @@ floor_sqrt = PrimRec(
 )
 floor_sqrt = PrimRec(zro, ifel(eq(square(succ(p1)), succ(p2)), succ(p1), p1))
 
-
 traingle = PrimRec(zro, Comb(add, p1, p2))
 traingle = PrimRec(zro, add(p1, p2))
 
 pair = Comb(add, p1, Comb(traingle, Comb(add, p1, Comb(succ, p2))))
 pair = add(p1, traingle(add(p1, succ(p2))))
 
-fst = PrimRec(zro, Comb(ifel, Comb(eq, Comb(pair, p1, zro), p2), zro, Comb(succ, p1)))
-fst = PrimRec(zro, ifel(eq(pair(p1, zro), p2), zro, succ(p1)))
+fst = PrimRec(zro, Comb(mult, Comb(neq, Comb(pair, p1, zro), p2), Comb(succ, p1)))
+fst = PrimRec(zro, mult(neq(pair(p1, zro), p2), succ(p1)))
 
 scd = PrimRec(
     zro,
