@@ -2,19 +2,19 @@ abstract type AbstractPrimRec end
 
 struct Succ <: AbstractPrimRec end
 
-(::Succ)(xs::Integer...) = xs[1] + 1
+(::Succ)(xs::Int...)::Int = xs[1] + 1
 
-succ = Succ()
+const succ = Succ()
 
 struct Zero <: AbstractPrimRec end
 
-(::Zero)(xs::Integer...) = 0
+(::Zero)(xs::Int...)::Int = 0
 
-zro = Zero()
+const zro = Zero()
 
 struct Proj{T} <: AbstractPrimRec end
 
-(::Proj{T})(xs::Integer...) where {T} = xs[T]
+function (::Proj{T})(xs::Int...)::Int where {T}; xs[T] end
 
 struct Comb <: AbstractPrimRec
     f::AbstractPrimRec
@@ -22,14 +22,14 @@ struct Comb <: AbstractPrimRec
     Comb(f, gs...) = new(f, gs)
 end
 
-(c::Comb)(xs::Integer...) = c.f((g(xs...) for g in c.gs)...)
+(c::Comb)(xs::Int...)::Int = c.f((g(xs...) for g in c.gs)...)
 
 struct PrimRec <: AbstractPrimRec
     basic::AbstractPrimRec
     step::AbstractPrimRec
 end
 
-(pr::PrimRec)(xs::Integer...) = begin
+(pr::PrimRec)(xs::Int...)::Int = begin
     t = xs[1]
     y = xs[2:end]
     cur = pr.basic(y...)
